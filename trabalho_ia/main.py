@@ -6,6 +6,10 @@ onde a gente estuda : ok
 melhor parada de ônibus para deslocamento : pesquisar locais proximo das coordenadas
 onde existem academias: pesquisar locais proximo das coordenadas
 onde existem mercados: pesquisar locais proximo das coordenadas
+Sul: -30.259482, -51.152611
+Norte: -29.957750, -51.140338
+Leste: -30.103489, -51.265891
+Oeste: -30.132653, -51.097378
 """
 
 
@@ -52,8 +56,8 @@ dataset = np.vstack(coordenadas)
 
 
 plt.scatter(dataset[:, 1], dataset[:, 0])
-plt.xlim(-51.1, -51.25)
-plt.ylim(-30, -30.05)
+plt.xlim(-51.26, -51.09)
+plt.ylim(-30.25, -29.9)
 plt.grid()
 
 kmeans = KMeans(
@@ -65,8 +69,8 @@ kmeans = KMeans(
 pred_y = kmeans.fit_predict(dataset)
 
 plt.scatter(dataset[:, 1], dataset[:, 0], c=pred_y)
-plt.xlim(-51.1, -51.25)
-plt.ylim(-30, -30.05)
+plt.xlim(-51.26, -51.09)
+plt.ylim(-30.25, -29.9)
 plt.grid()
 
 plt.scatter(kmeans.cluster_centers_[:, 1], kmeans.cluster_centers_[:, 0], s=70, c='red')
