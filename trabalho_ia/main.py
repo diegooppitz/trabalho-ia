@@ -1,18 +1,3 @@
-"""
-procurar coordenadas de lugares que a gente gostaria de ficar próximos: ok
-
-onde a gente trabalha : ok
-onde a gente estuda : ok
-melhor parada de ônibus para deslocamento : pesquisar locais proximo das coordenadas
-onde existem academias: pesquisar locais proximo das coordenadas
-onde existem mercados: pesquisar locais proximo das coordenadas
-Sul: -30.259482, -51.152611
-Norte: -29.957750, -51.140338
-Leste: -30.103489, -51.265891
-Oeste: -30.132653, -51.097378
-"""
-
-
 import googlemaps
 
 from matplotlib import pyplot as plt
@@ -21,7 +6,7 @@ import numpy as np
 
 gmaps = googlemaps.Client(key='AIzaSyDqdspIV0djGL0uqYtFAuUJwtqyG2gVkUU')
 
-cidade = input("Informe a cidade onde você mora ou deseja morar:")
+cidade = "Porto Alegre"
 
 lugar_preferido = input("Informe o lugar que você gostaria de ficar próximo:")
 importancia_lugar= int(input("Informe a importancia do lugar preferido:"))
@@ -34,6 +19,7 @@ importancia_trabalho = int(input("Informe a importancia de seu trabalho:"))
 
 result = gmaps.geocode(''+ faculdade +',' + cidade +'')
 result2 = gmaps.geocode(''+ trabalho +',' + cidade +'')
+result3 = gmaps.geocode(''+ lugar_preferido +',' + cidade +'')
 
 lat = result[0]['geometry']['location']['lat']
 lng = result[0]['geometry']['location']['lng']
@@ -41,15 +27,22 @@ lng = result[0]['geometry']['location']['lng']
 lat2 = result2[0]['geometry']['location']['lat']
 lng2 = result2[0]['geometry']['location']['lng']
 
+lat3 = result3[0]['geometry']['location']['lat']
+lng3 = result3[0]['geometry']['location']['lng']
+
 coordenadas = []
 estudo = [lat,lng]
 trabalho = [lat2,lng2]
+preferido = [lat3,lng3]
 
 for x in range(0,importancia_faculdade):
     coordenadas.append(estudo)
 
 for x in range(0,importancia_trabalho):
     coordenadas.append(trabalho)
+
+for x in range(0, importancia_lugar):
+    coordenadas.append(preferido)
 
 dataset = np.array([])
 dataset = np.vstack(coordenadas)
