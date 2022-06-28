@@ -1,25 +1,24 @@
 import googlemaps
-
+import numpy as np
 from matplotlib import pyplot as plt
 from sklearn.cluster import KMeans
-import numpy as np
 
 gmaps = googlemaps.Client(key='AIzaSyDqdspIV0djGL0uqYtFAuUJwtqyG2gVkUU')
 
 cidade = "Porto Alegre"
 
-lugar_preferido = input("Informe o lugar que você gostaria de ficar próximo:")
-importancia_lugar = int(input("Informe a importancia do lugar preferido:"))
+lugar_preferido = input("Informe o endereço do lugar que você gostaria de ficar próximo: ")
+importancia_lugar = int(input("Informe o grau de importância do lugar preferido: "))
 
-faculdade = input("Informe o endereço de sua faculdade:")
-importancia_faculdade = int(input("Informe a importancia da faculdade:"))
+faculdade = input("\nInforme o endereço de sua faculdade: ")
+importancia_faculdade = int(input("Informe o grau de importância da faculdade: "))
 
-trabalho = input("Informe o endereço de seu trabalho:")
-importancia_trabalho = int(input("Informe a importancia de seu trabalho:"))
+trabalho = input("\nInforme o endereço de seu trabalho: ")
+importancia_trabalho = int(input("Informe o grau de importância de seu trabalho: "))
 
-result = gmaps.geocode('' + faculdade + ',' + cidade + '')
-result2 = gmaps.geocode('' + trabalho + ',' + cidade + '')
-result3 = gmaps.geocode('' + lugar_preferido + ',' + cidade + '')
+result = gmaps.geocode('' + faculdade + ', ' + cidade + '')
+result2 = gmaps.geocode('' + trabalho + ', ' + cidade + '')
+result3 = gmaps.geocode('' + lugar_preferido + ', ' + cidade + '')
 
 lat = result[0]['geometry']['location']['lat']
 lng = result[0]['geometry']['location']['lng']
@@ -34,6 +33,10 @@ coordenadas = []
 estudo = [lat, lng]
 trabalho = [lat2, lng2]
 preferido = [lat3, lng3]
+
+print(f'\nLocalização geográfica do local preferido: {preferido}')
+print(f'Localização geográfica da Faculdade: {estudo}')
+print(f'Localização geográfica do Trabalho: {trabalho}')
 
 for x in range(0, importancia_faculdade):
     coordenadas.append(estudo)
@@ -66,4 +69,7 @@ plt.ylim(-30.25, -29.9)
 plt.grid()
 
 plt.scatter(kmeans.cluster_centers_[:, 1], kmeans.cluster_centers_[:, 0], s=70, c='red')
+
+print(f'Localização geográfica da melhor localização: {kmeans.cluster_centers_}')
+
 plt.show()
