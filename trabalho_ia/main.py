@@ -16,9 +16,9 @@ importancia_faculdade = int(input("Informe o grau de importância da faculdade: 
 trabalho = input("\nInforme o endereço de seu trabalho: ")
 importancia_trabalho = int(input("Informe o grau de importância de seu trabalho: "))
 
-result = gmaps.geocode('' + faculdade + ', ' + cidade + '')
-result2 = gmaps.geocode('' + trabalho + ', ' + cidade + '')
-result3 = gmaps.geocode('' + lugar_preferido + ', ' + cidade + '')
+result = gmaps.geocode(f'{faculdade}, {cidade}')
+result2 = gmaps.geocode(f'{trabalho}, {cidade}')
+result3 = gmaps.geocode(f'{lugar_preferido}, {cidade}')
 
 lat = result[0]['geometry']['location']['lat']
 lng = result[0]['geometry']['location']['lng']
