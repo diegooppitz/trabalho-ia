@@ -6,6 +6,8 @@ from sklearn.cluster import KMeans
 gmaps = googlemaps.Client(key='AIzaSyDqdspIV0djGL0uqYtFAuUJwtqyG2gVkUU')
 
 cidade = "Porto Alegre"
+xlim_poa = -51.26, -51.09
+ylim_poa = -30.25, -29.9
 
 lugar_preferido = input("Informe o endereço do lugar que você gostaria de ficar próximo: ")
 importancia_lugar = int(input("Informe o grau de importância do lugar preferido: "))
@@ -51,21 +53,22 @@ dataset = np.array([])
 dataset = np.vstack(coordenadas)
 
 plt.scatter(dataset[:, 1], dataset[:, 0])
-plt.xlim(-51.26, -51.09)
-plt.ylim(-30.25, -29.9)
+plt.xlim(xlim_poa)
+plt.ylim(ylim_poa)
 plt.grid()
 
 kmeans = KMeans(
-   n_clusters=1,
-   init='k-means++', n_init=10,
-   max_iter=300
+    n_clusters=1,
+    init='k-means++',
+    n_init=10,
+    max_iter=300
 )
 
 pred_y = kmeans.fit_predict(dataset)
 
 plt.scatter(dataset[:, 1], dataset[:, 0], c=pred_y)
-plt.xlim(-51.26, -51.09)
-plt.ylim(-30.25, -29.9)
+plt.xlim(xlim_poa)
+plt.ylim(ylim_poa)
 plt.grid()
 
 plt.scatter(kmeans.cluster_centers_[:, 1], kmeans.cluster_centers_[:, 0], s=70, c='red')
